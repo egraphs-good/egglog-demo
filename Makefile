@@ -10,8 +10,8 @@ build: egglog-upstream
 
 copy-static:
 	mkdir -p dist
-	cp -r static/* dist/
-	cp -r pkg/* dist/
+	cp -rf static/* dist/
+	cp -rf pkg/* dist/
 
 
 egglog-upstream:
