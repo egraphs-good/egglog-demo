@@ -22,4 +22,4 @@ static/examples.json: egglog-upstream
 	./examples.py $(shell find egglog-upstream/tests -type f -name '*.egg' -not -name '*repro-*') > static/examples.json
 
 clean:
-	rm -rf pkg dist
+	rm -rf pkg dist egglog-upstream
