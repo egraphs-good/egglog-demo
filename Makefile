@@ -8,10 +8,10 @@ all: build copy-static
 build: egglog-upstream
 	wasm-pack build --target no-modules --no-typescript
 
-copy-static: static/examples.json
-	mkdir -p dist
-	cp -rf static/* dist/
-	cp -rf pkg/* dist/
+dist: static/examples.json
+	mkdir -p  $@
+	cp -rf static/*  $@
+	cp -rf pkg/*  $@
 
 
 egglog-upstream:
