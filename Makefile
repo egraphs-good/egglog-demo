@@ -1,9 +1,9 @@
 # Makefile for egglog-demo web build and deploy
 
-.PHONY: all build copy-static clean
+.PHONY: all build clean
 
 
-all: build copy-static
+all: build dist
 
 build: egglog-upstream
 	wasm-pack build --target no-modules --no-typescript
