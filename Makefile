@@ -5,7 +5,7 @@
 
 all: build copy-static static/examples.json
 
-build:
+build: egglog-upstream
 	wasm-pack build --target no-modules --no-typescript
 
 copy-static:
