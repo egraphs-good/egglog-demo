@@ -1,0 +1,27 @@
+# Ignore local clone of upstream egglog repo
+/egglog-upstream/
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# WebAssembly build output
+/pkg/
+
+# Python HTTP server cache
+/static/__pycache__/
+/static/*.pyc
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Node/npm (if any JS tooling is added)
+node_modules/
+
+# Misc
+*.log
+*.tmp
+dist/
