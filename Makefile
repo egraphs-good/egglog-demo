@@ -3,12 +3,12 @@
 .PHONY: all build copy-static clean
 
 
-all: build copy-static static/examples.json
+all: build copy-static
 
 build: egglog-upstream
 	wasm-pack build --target no-modules --no-typescript
 
-copy-static:
+copy-static: static/examples.json
 	mkdir -p dist
 	cp -rf static/* dist/
 	cp -rf pkg/* dist/
