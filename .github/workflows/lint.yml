@@ -9,9 +9,6 @@ on: # yamllint disable-line rule:truthy
       - "main"
   pull_request: null
 
-permissions:
-  contents: read
-
 jobs:
   lint-and-fix:
     permissions:
@@ -44,7 +41,7 @@ jobs:
           # https://github.com/super-linter/super-linter/blob/main/docs/run-linter-locally.md#share-environment-variables-between-environments
           VALIDATE_NATURAL_LANGUAGE: false
       - name: Commit and push linting fixes
-        if: ${{ github.event_name == 'pull_request' }}
+        if: ${{ always() && github.event_name == 'pull_request' }}
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: ${{ github.event.pull_request.head.ref || github.head_ref || github.ref }}
