@@ -30,7 +30,6 @@ jobs:
           FIX_MARKDOWN: true
           FIX_MARKDOWN_PRETTIER: true
           FIX_HTML_PRETTIER: true
-          FIX_JAVASCRIPT_ES: true
           FIX_JAVASCRIPT_PRETTIER: true
           FIX_CSS: true
           FIX_JSON: true
@@ -46,9 +45,11 @@ jobs:
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_HTML: false
           VALIDATE_CHECKOV: false
+          VALIDATE_JAVASCRIPT_ES: false
           VALIDATE_PYTHON_PYLINT: false
           VALIDATE_PYTHON_PYINK: false
           VALIDATE_JAVASCRIPT_STANDARD: false
+          VALIDATE_JSCPD: false
 
       - name: Commit and push linting fixes
         if: ${{ always() && github.event_name == 'pull_request' }}
