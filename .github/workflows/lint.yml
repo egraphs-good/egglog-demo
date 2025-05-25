@@ -4,7 +4,9 @@
 name: Lint
 
 on: # yamllint disable-line rule:truthy
-  push: null
+  push:
+    branches:
+      - "main"
   pull_request: null
 
 permissions:
