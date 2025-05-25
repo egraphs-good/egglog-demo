@@ -66,6 +66,8 @@ make static/examples.json
 
 This ensures the demo always uses the latest official and experimental egglog examples. If you want to add or update examples, edit them in the upstream repos and re-run the above command.
 
+Every night the site is rebuilt on Github Actions and the examples are pulled in.
+
 ## License
 
 This project is licensed under the MIT License.
