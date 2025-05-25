@@ -1,13 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <title>egglog demo</title>
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="https://egraphs-good.github.io/assets/egg.svg"
-    />
+    <link rel="icon" type="image/svg+xml" href="https://egraphs-good.github.io/assets/egg.svg" />
     <style>
       body {
         margin: 0 !important;
@@ -106,22 +102,13 @@
       }
     </style>
 
-    <link
-      rel="stylesheet"
-      href="//unpkg.com/codemirror@5.65.2/lib/codemirror.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/egraph-visualizer@2/dist/style.css"
-    />
+    <link rel="stylesheet" href="//unpkg.com/codemirror@5.65.2/lib/codemirror.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/egraph-visualizer@2/dist/style.css" />
     <script src="//unpkg.com/codemirror@5.65.2/lib/codemirror.js"></script>
     <script src="//unpkg.com/codemirror@5.65.2/mode/scheme/scheme.js"></script>
     <script src="//unpkg.com/codemirror@5.65.2/addon/edit/matchbrackets.js"></script>
     <script src="//unpkg.com/codemirror@5.65.2/addon/edit/closebrackets.js"></script>
-    <script
-      src="https://unpkg.com/@hpcc-js/wasm@2.13.1/dist/graphviz.umd.js"
-      type="javascript/worker"
-    ></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@2.13.1/dist/graphviz.umd.js" type="javascript/worker"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3-graphviz@5.4.0/build/d3-graphviz.min.js"></script>
     <script type="module">
@@ -131,13 +118,7 @@
       let editor, output, examples, loginfo;
       let fulllog = [];
       let logLevels = ["ERROR", "WARN", "INFO", "DEBUG"];
-      let nextButton,
-        prevButton,
-        slideNumber,
-        docsButton,
-        githubButton,
-        shareButton,
-        examplesDropDown;
+      let nextButton, prevButton, slideNumber, docsButton, githubButton, shareButton, examplesDropDown;
       console.log("Main script is running");
       let worker = new Worker("worker.js");
 
@@ -165,8 +146,7 @@
         if (!message) {
           return;
         }
-        const visualizerSelectValue =
-          document.getElementById("visualizer-select").value;
+        const visualizerSelectValue = document.getElementById("visualizer-select").value;
         if (visualizerSelectValue == "graphviz") {
           if (window.lastGraph?.type === "elk") {
             window.lastGraph.mounted.unmount();
@@ -217,9 +197,7 @@
       window.refreshLog = function refreshLog() {
         let level = document.getElementById("logLevel").value;
         let displayloglevel = logLevels.indexOf(level);
-        let log = fulllog.filter(
-          (entry) => logLevels.indexOf(entry[0]) <= displayloglevel,
-        );
+        let log = fulllog.filter((entry) => logLevels.indexOf(entry[0]) <= displayloglevel);
         loginfo.textContent = log.map((entry) => entry[1]).join("\n");
         loginfo.scrollTop = loginfo.scrollHeight;
       };
@@ -238,12 +216,7 @@
           if (examples[example]) {
             setProgram(examples[example]);
           } else {
-            console.warn(
-              "Bad example choice",
-              example,
-              "choices: ",
-              Object.keys(examples),
-            );
+            console.warn("Bad example choice", example, "choices: ", Object.keys(examples));
           }
         } else if (program) {
           let decompressed = decompressUrlSafe(program);
@@ -338,9 +311,7 @@
           slideNumber.textContent = `${state.slideIndex + 1}`;
 
           // content is all the sexps up to slidenum
-          let content = state.contentBySexp
-            .slice(0, state.slideIndex + 1)
-            .join("");
+          let content = state.contentBySexp.slice(0, state.slideIndex + 1).join("");
           setProgram(content);
         }
         editor.scrollTo(0, editor.getScrollInfo().height);
@@ -506,33 +477,21 @@
         </select>
         <div class="right" id="github">
           <a class="badge" href="https://github.com/egraphs-good/egglog">
-            <img
-              alt="GitHub Repo"
-              src="https://img.shields.io/github/stars/egraphs-good/egglog?label=GitHub&style=social"
+            <img alt="GitHub Repo" src="https://img.shields.io/github/stars/egraphs-good/egglog?label=GitHub&style=social"
           /></a>
         </div>
         <div class="right" id="docs">
-          <a class="badge" href="docs/egglog">
-            <img
-              alt="Main Branch Documentation"
-              src="https://img.shields.io/badge/docs-main-blue"
-          /></a>
+          <a class="badge" href="docs/egglog"> <img alt="Main Branch Documentation" src="https://img.shields.io/badge/docs-main-blue" /></a>
         </div>
       </div>
       <!-- Log panel -->
       <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'outputtab')">
-          Output
-        </button>
-        <button class="tablinks" onclick="openTab(event, 'loginfotab')">
-          Log
-        </button>
+        <button class="tablinks" onclick="openTab(event, 'outputtab')">Output</button>
+        <button class="tablinks" onclick="openTab(event, 'loginfotab')">Log</button>
       </div>
 
       <div id="outputtab" class="tabcontent">
-        <div id="output" style="display: contents; white-space: pre-wrap">
-          Click "Run" to run code
-        </div>
+        <div id="output" style="display: contents; white-space: pre-wrap">Click "Run" to run code</div>
       </div>
       <div id="loginfotab" class="tabcontent" style="display: none">
         Display level:
@@ -544,9 +503,7 @@
         </select>
         <br />
         <hr />
-        <div id="loginfo" style="display: contents; white-space: pre-wrap">
-          Click "Run" to run code
-        </div>
+        <div id="loginfo" style="display: contents; white-space: pre-wrap">Click "Run" to run code</div>
       </div>
 
       <div id="graph">
