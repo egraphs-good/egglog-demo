@@ -2,6 +2,8 @@
 
 This repository contains the web demo for [egglog](https://github.com/egraphs-good/egglog), a e-graph library for equality saturation and term rewriting. The web demo allows users to interactively run and visualize egglog programs in the browser.
 
+[![Super-Linter](https://github.com/egraphs-good/egglog-demo/actions/workflows/lint.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
 ## Features
 
 - Run egglog programs in your browser
