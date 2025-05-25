@@ -1,0 +1,58 @@
+# From https://github.com/super-linter/super-linter?tab=readme-ov-file#get-started
+# and https://github.com/super-linter/super-linter?tab=readme-ov-file#github-actions-workflow-example-pull-request
+---
+name: Lint
+
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - "main"
+  pull_request: null
+
+jobs:
+  lint-and-fix:
+    permissions:
+      contents: write
+      packages: read
+      statuses: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: make egglog-upstream
+      - name: Super-Linter
+        uses: super-linter/super-linter@v7.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ENABLE_GITHUB_ACTIONS_STEP_SUMMARY: false
+          # Set your fix mode variables to true
+          FIX_MARKDOWN: true
+          FIX_MARKDOWN_PRETTIER: true
+          FIX_HTML_PRETTIER: true
+          FIX_JAVASCRIPT_PRETTIER: true
+          FIX_CSS: true
+          FIX_JSON: true
+          FIX_JSON_PRETTIER: true
+          FIX_RUST_2021: true
+          FIX_RUST_CLIPPY: true
+          FIX_YAML_PRETTIER: true
+          FIX_PYTHON_RUFF: true
+          FIX_PYTHON_BLACK: true
+          # To reuse the same Super-linter configuration that you use in the
+          # lint job without duplicating it, see
+          # https://github.com/super-linter/super-linter/blob/main/docs/run-linter-locally.md#share-environment-variables-between-environments
+          VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_HTML: false
+          VALIDATE_CHECKOV: false
+          VALIDATE_JAVASCRIPT_ES: false
+          VALIDATE_PYTHON_PYLINT: false
+          VALIDATE_PYTHON_PYINK: false
+          VALIDATE_JAVASCRIPT_STANDARD: false
+          VALIDATE_JSCPD: false
+
+      - name: Commit and push linting fixes
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: fix linting issues"
