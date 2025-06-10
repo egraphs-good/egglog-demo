@@ -15,7 +15,7 @@ dist: static/examples.json
 
 
 egglog-upstream:
-	git clone https://github.com/egraphs-good/egglog.git $@
+	git clone -b backend-merge https://github.com/egraphs-good/egglog-experimental.git --depth 1 $@
 
 
 static/examples.json: egglog-upstream
