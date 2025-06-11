@@ -9,13 +9,9 @@ repository = "https://github.com/egraphs-good/egglog-demo"
 [lib]
 crate-type = ["cdylib"]
 
-
-[dependencies.egglog-experimental]
-default-features = false
-features = []
-path = "egglog-upstream"
-
 [dependencies]
+egglog = { path = "egglog-upstream" }
+egglog-experimental = { path = "experimental-upstream" }
 wee_alloc = "0.4.5"
 log = "0.4.19"
 wasm-logger = "0.2"
@@ -23,6 +19,7 @@ serde_json = "1.0"
 console_error_panic_hook = "0.1.7"
 js-sys = "0.3"
 wasm-bindgen = "0.2"
+getrandom = { version = "0.2", features = ["js"] }
 web-sys = { version = "0.3.64", features = [
   # "Blob",
   # "BlobPropertyBag",
