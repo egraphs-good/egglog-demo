@@ -1,5 +1,5 @@
 #![allow(clippy::unused_unit)] // weird clippy bug with wasm-bindgen
-use egglog::SerializeConfig;
+use egglog_experimental::SerializeConfig;
 use log::{Level, Log, Metadata, Record};
 use wasm_bindgen::prelude::*;
 use web_sys::console;
@@ -16,7 +16,7 @@ pub struct Result {
 
 #[wasm_bindgen]
 pub fn run_program(input: &str) -> Result {
-    let mut egraph = egglog::EGraph::default();
+    let mut egraph = egglog_experimental::new_experimental_egraph();
     match egraph.parse_and_run_program(Some("web-demo.egg".into()), input) {
         Ok(outputs) => {
             let serialized = egraph.serialize(SerializeConfig {

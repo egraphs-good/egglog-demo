@@ -1,5 +1,6 @@
 # Ignore local clone of upstream egglog repo
 /egglog-upstream/
+/experimental-upstream/
 # Rust
 /target/
 **/*.rs.bk

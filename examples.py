@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -8,7 +9,7 @@ if len(sys.argv) <= 1:
     print("ERROR: give some files as input")
     sys.exit(1)
 
-files = sorted(sys.argv[1:])
+files = sorted(sys.argv[1:], key = os.path.basename)
 
 result = {}
 for filename in files:
