@@ -19,8 +19,8 @@ upstream:
 
 static/examples.json: upstream
 	./examples.py \
-		$(shell find egglog-upstream/tests/web-demo -type f -name '*.egg') \
-		$(shell find experimental-upstream/tests    -type f -name '*.egg') \
+		$(shell find       egglog-upstream/tests/web-demo -type f -name '*.egg') \
+		$(shell find experimental-upstream/tests/web-demo -type f -name '*.egg') \
 		> static/examples.json
 
 clean:
