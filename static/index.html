@@ -197,7 +197,8 @@
             let level = document.getElementById("logLevel").value;
             let displayloglevel = logLevels.indexOf(level);
             let log = fulllog.filter((entry) => logLevels.indexOf(entry[0]) <= displayloglevel);
-            loginfo.textContent = log.map((entry) => entry[1]).join("\n");
+            // `innerHTML` because `wasm-logger` gives back spans
+            loginfo.innerHTML = log.map((entry) => entry[1]).join("\n");
             loginfo.scrollTop = loginfo.scrollHeight;
         }
 
