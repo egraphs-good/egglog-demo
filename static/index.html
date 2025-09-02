@@ -138,6 +138,9 @@
             output.scrollTop = output.scrollHeight;
             fulllog = message.data.log;
             window.previousEGraphs.push(message.data.json);
+            if (message.data.omitted) {
+                alert(`Max nodes exceeded for visualization. ${message.data.omitted}`);
+            }
             refreshLog();
             window.fillGraph();
         }

@@ -1,5 +1,4 @@
-#![allow(clippy::unused_unit)] // weird clippy bug with wasm-bindgen
-use egglog_experimental::SerializeConfig;
+use egglog::SerializeConfig;
 use log::{Level, Log, Metadata, Record};
 use wasm_bindgen::prelude::*;
 use web_sys::console;
@@ -9,6 +8,7 @@ pub struct Result {
     pub text: String,
     pub dot: String,
     pub json: String,
+    pub omitted: String,
 }
 
 #[wasm_bindgen]
@@ -16,21 +16,26 @@ pub fn run_program(input: &str) -> Result {
     let mut egraph = egglog_experimental::new_experimental_egraph();
     match egraph.parse_and_run_program(Some("web-demo.egg".into()), input) {
         Ok(outputs) => {
-            let serialized = egraph.serialize(SerializeConfig {
+            let output = egraph.serialize(SerializeConfig {
                 max_functions: Some(40),
                 max_calls_per_function: Some(40),
                 ..Default::default()
             });
-            let json = serde_json::to_string(&serialized).unwrap();
             Result {
-                text: outputs.join("\n"),
-                dot: serialized.to_dot(),
-                json,
+                text: outputs
+                    .iter()
+                    .map(|s| s.to_string())
+                    .collect::<Vec<_>>()
+                    .join(""),
+                dot: output.egraph.to_dot(),
+                omitted: output.omitted_description(),
+                json: serde_json::to_string(&output.egraph).unwrap(),
             }
         }
         Err(e) => Result {
             text: e.to_string(),
             dot: "".to_string(),
+            omitted: "".to_string(),
             json: "{}".to_string(),
         },
     }
