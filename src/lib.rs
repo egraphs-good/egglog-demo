@@ -1,5 +1,4 @@
-#![allow(clippy::unused_unit)] // weird clippy bug with wasm-bindgen
-use egglog_experimental::SerializeConfig;
+use egglog::SerializeConfig;
 use log::{Level, Log, Metadata, Record};
 use wasm_bindgen::prelude::*;
 use web_sys::console;

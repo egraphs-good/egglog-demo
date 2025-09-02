@@ -33,3 +33,6 @@ web-sys = { version = "0.3.64", features = [
   "Worker",
   "DedicatedWorkerGlobalScope",
 ] }
+
+[patch.'https://github.com/egraphs-good/egglog']
+egglog = { path = "egglog-upstream" }
