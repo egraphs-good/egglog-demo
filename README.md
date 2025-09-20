@@ -33,7 +33,7 @@ This repository contains the web demo for [egglog](https://github.com/egraphs-go
 3. **Build the WebAssembly package and copy static files:**
 
    ```fish
-   make all
+   make
    ```
 
    This will generate the necessary `.wasm` and JS files in the `pkg/` directory and copy everything to `dist/`.
@@ -54,11 +54,11 @@ This repository contains the web demo for [egglog](https://github.com/egraphs-go
 - `src/` — Rust source code for the WebAssembly module
 - `static/` — Static files for the web demo (HTML, JS, CSS)
 - `examples.py` — Script to bundle example `.egg` files as JSON for the demo
-- `egglog-upstream/` — Local clone of the upstream [egglog](https://github.com/egraphs-good/egglog) repo (ignored by git)
+- `tutorial-upstream/` — Local clone of the upstream [egglog tutorial](https://github.com/egraphs-good/egglog-tutorial) repo (ignored by git)
 
 ## Examples
 
-The web demo loads its example programs from the `tests` directories of the upstream [egglog](https://github.com/egraphs-good/egglog). These are automatically downloaded and bundled into a JSON file (`static/examples.json`) by running:
+The web demo loads its example programs from the `tests` directories of the upstream [egglog](https://github.com/egraphs-good/egglog), [egglog-experimental](https://github.com/egraphs-good/egglog-experimental), and [egglog tutorial](https://github.com/egraphs-good/egglog-tutorial) projects. These are automatically downloaded and bundled into a JSON file (`static/examples.json`) by running:
 
 ```fish
 make static/examples.json
