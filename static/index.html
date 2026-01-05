@@ -391,7 +391,8 @@
         window.onload = async function () {
             examples = await fetch("examples.json").then(r => r.json());
             let select = document.getElementById("examples");
-            for (name in examples) {
+            let sortedNames = Object.keys(examples).sort();
+            for (let name of sortedNames) {
                 let node = document.createElement("option");
                 node.value = name;
                 node.textContent = name;
