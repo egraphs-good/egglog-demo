@@ -116,7 +116,7 @@
         import { compressUrlSafe, decompressUrlSafe } from './lzma-url.mjs';
         import { mount } from "https://cdn.jsdelivr.net/npm/egraph-visualizer@2/+esm";
 
-        let editor, output, examples, loginfo;
+        let editor, output, examples, loginfo, jsonoutput, dotoutput;
         let fulllog = [];
         let logLevels = ["ERROR", "WARN", "INFO", "DEBUG"];
         let nextButton, prevButton, slideNumber, docsButton, githubButton, shareButton, examplesDropDown;
@@ -138,6 +138,12 @@
             output.scrollTop = output.scrollHeight;
             fulllog = message.data.log;
             window.previousEGraphs.push(message.data.json);
+            try {
+                jsonoutput.textContent = JSON.stringify(JSON.parse(message.data.json), null, 2);
+            } catch (e) {
+                jsonoutput.textContent = message.data.json;
+            }
+            dotoutput.textContent = message.data.dot;
             if (message.data.omitted) {
                 alert(`Max nodes exceeded for visualization. ${message.data.omitted}`);
             }
@@ -412,6 +418,8 @@
 
             output = document.getElementById("output");
             loginfo = document.getElementById("loginfo");
+            jsonoutput = document.getElementById("jsonoutput");
+            dotoutput = document.getElementById("dotoutput");
             editor = CodeMirror(document.getElementById("editor"), {
                 lineNumbers: true,
                 mode: "scheme",
@@ -494,6 +502,8 @@
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'outputtab')">Output</button>
             <button class="tablinks" onclick="openTab(event, 'loginfotab')">Log</button>
+            <button class="tablinks" onclick="openTab(event, 'jsontab')">JSON</button>
+            <button class="tablinks" onclick="openTab(event, 'dottab')">DOT</button>
         </div>
 
         <div id="outputtab" class="tabcontent">
@@ -509,6 +519,12 @@
             <br>
             <hr>
             <div id="loginfo" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
+        </div>
+        <div id="jsontab" class="tabcontent" style="display:none">
+            <div id="jsonoutput" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
+        </div>
+        <div id="dottab" class="tabcontent" style="display:none">
+            <div id="dotoutput" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
         </div>
 
         <div id="graph">
