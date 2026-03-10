@@ -521,9 +521,11 @@
             <div id="loginfo" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
         </div>
         <div id="jsontab" class="tabcontent" style="display:none">
+            <button onclick="navigator.clipboard.writeText(document.getElementById('jsonoutput').textContent)">Copy</button>
             <div id="jsonoutput" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
         </div>
         <div id="dottab" class="tabcontent" style="display:none">
+            <button onclick="navigator.clipboard.writeText(document.getElementById('dotoutput').textContent)">Copy</button>
             <div id="dotoutput" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
         </div>
 
