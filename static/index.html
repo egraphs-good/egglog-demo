@@ -152,49 +152,49 @@
         }
 
         window.fillGraph = function () {
-          const message = window.lastMessage;
-          if (!message) {
-            return;
-          }
-          const visualizerSelectValue = document.getElementById("visualizer-select").value;
-          if (visualizerSelectValue == "graphviz") {
-            if (window.lastGraph?.type === "elk") {
-              window.lastGraph.mounted.unmount();
+            const message = window.lastMessage;
+            if (!message) {
+                return;
             }
-            let graphContainer;
-            if (window.lastGraph?.type !== "graphviz") {
-              graphContainer = d3.select("#graph-inner");
-              window.lastGraph = { type: "graphviz", graphContainer };
+            const visualizerSelectValue = document.getElementById("visualizer-select").value;
+            if (visualizerSelectValue == "graphviz") {
+                if (window.lastGraph?.type === "elk") {
+                    window.lastGraph.mounted.unmount();
+                }
+                let graphContainer;
+                if (window.lastGraph?.type !== "graphviz") {
+                    graphContainer = d3.select("#graph-inner");
+                    window.lastGraph = { type: "graphviz", graphContainer };
+                } else {
+                    graphContainer = window.lastGraph.graphContainer;
+                }
+                const width = graphContainer.node().clientWidth;
+                const height = graphContainer.node().clientHeight;
+                const graphviz = graphContainer.graphviz({
+                    // Fit graph to that size, so that all is visible
+                    fit: true,
+                    width: width,
+                    height: height,
+                    // Don't animate transitions between shapes for performance
+                    tweenPaths: false,
+                    tweenShapes: false,
+                })
+                    .transition(d3.transition().duration(2000))
+                    .dot(message.data.dot).render();
+                window.lastGraph.graphviz = graphviz;
             } else {
-              graphContainer = window.lastGraph.graphContainer;
+                if (window.lastGraph?.type === "graphviz") {
+                    window.lastGraph.graphviz.destroy();
+                }
+                let mounted;
+                if (window.lastGraph?.type !== "elk") {
+                    mounted = mount(document.getElementById("graph-inner"));
+                    window.lastGraph = { type: "elk", mounted };
+                } else {
+                    mounted = window.lastGraph.mounted;
+                }
+                mounted.render(window.previousEGraphs);
             }
-            const width = graphContainer.node().clientWidth;
-            const height = graphContainer.node().clientHeight;
-            const graphviz = graphContainer.graphviz({
-                // Fit graph to that size, so that all is visible
-                fit: true,
-                width: width,
-                height: height,
-                // Don't animate transitions between shapes for performance
-                tweenPaths: false,
-                tweenShapes: false,
-            })
-                .transition(d3.transition().duration(2000))
-                .dot(message.data.dot).render();
-            window.lastGraph.graphviz = graphviz;
-          } else {
-            if (window.lastGraph?.type === "graphviz") {
-              window.lastGraph.graphviz.destroy();
-            }
-            let mounted;
-            if (window.lastGraph?.type !== "elk") {
-              mounted = mount(document.getElementById("graph-inner"));
-              window.lastGraph = { type: "elk", mounted };
-            } else {
-              mounted = window.lastGraph.mounted;
-            }
-            mounted.render(window.previousEGraphs);
-          }
         }
 
         window.onpopstate = function (event) {
@@ -439,7 +439,7 @@
             examplesDropDown = document.getElementById("examples");
             const visualizerSelect = document.getElementById("visualizer-select");
             visualizerSelect.onchange = function () {
-              window.fillGraph();
+                window.fillGraph();
             }
 
             loadEditor();
@@ -521,11 +521,17 @@
             <div id="loginfo" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
         </div>
         <div id="jsontab" class="tabcontent" style="display:none">
-            <button onclick="navigator.clipboard.writeText(document.getElementById('jsonoutput').textContent)">Copy</button>
+            <button
+                onclick="navigator.clipboard.writeText(document.getElementById('jsonoutput').textContent)">Copy</button>
+            <br>
+            <hr>
             <div id="jsonoutput" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
         </div>
         <div id="dottab" class="tabcontent" style="display:none">
-            <button onclick="navigator.clipboard.writeText(document.getElementById('dotoutput').textContent)">Copy</button>
+            <button
+                onclick="navigator.clipboard.writeText(document.getElementById('dotoutput').textContent)">Copy</button>
+            <br>
+            <hr>
             <div id="dotoutput" style="display:contents; white-space: pre-wrap;">Click "Run" to run code</div>
         </div>
 
