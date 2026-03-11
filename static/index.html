@@ -217,6 +217,8 @@
             editor.setCursor(cursor);
         }
 
+        const DEFAULT_EXAMPLE = "01-basics";
+
         function loadEditor() {
             let url = new URL(location);
             let example = url.searchParams.get("example");
@@ -230,7 +232,15 @@
             } else if (program) {
                 let decompressed = decompressUrlSafe(program);
                 setProgram(decompressed);
+            } else if (examples[DEFAULT_EXAMPLE]) {
+                setProgram(examples[DEFAULT_EXAMPLE]);
+            } else {
+                console.warn("Default example not found:", DEFAULT_EXAMPLE);
             }
+        }
+
+        window.clearEditor = function clearEditor() {
+            editor.setValue("");
         }
 
         window.onEnter = function onEnter() {
@@ -474,6 +484,7 @@
     <div id="panel">
         <div id="toolbar">
             <button onclick="run()">Run</button>
+            <button onclick="clearEditor()">Reset</button>
             <button onclick="pushState()" id="share">Share</button>
             <button onclick="slideMode()">Slidemode</button>
             <button id="prev" onclick="prev()">Prev</button>
