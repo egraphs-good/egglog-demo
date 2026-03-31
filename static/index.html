@@ -217,6 +217,11 @@
             editor.setCursor(cursor);
         }
 
+        window.resetCursor = function resetCursor() {
+            editor.focus();
+            editor.setCursor({ line: 0, ch: 0 });
+        }
+
         const DEFAULT_EXAMPLE = "01-basics";
 
         function loadEditor() {
@@ -237,10 +242,12 @@
             } else {
                 console.warn("Default example not found:", DEFAULT_EXAMPLE);
             }
+            resetCursor();
         }
 
         window.clearEditor = function clearEditor() {
             editor.setValue("");
+            resetCursor();
         }
 
         window.onEnter = function onEnter() {
@@ -332,8 +339,8 @@
                 // content is all the sexps up to slidenum
                 let content = state.contentBySexp.slice(0, state.slideIndex + 1).join("");
                 setProgram(content);
+                editor.scrollTo(0, editor.getScrollInfo().height);
             }
-            editor.scrollTo(0, editor.getScrollInfo().height);
         }
 
         window.slideMode = function slideMode() {
